@@ -110,7 +110,7 @@
 
 @font-face {
   font-family: "Blue Screen Personal Use";
-  src: url("/fonts/blue-screen.ttf") format("truetype");
+  src: url("/fonts/blue-screen.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -118,7 +118,7 @@
 
 @font-face {
   font-family: "Bristol";
-  src: url("/fonts/bristol.otf") format("opentype");
+  src: url("/fonts/bristol.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -126,7 +126,7 @@
 
 @font-face {
   font-family: "Snell Roundhand";
-  src: url("/fonts/snell-roundhand.otf") format("opentype");
+  src: url("/fonts/snell-roundhand.woff2") format("woff2");
   font-weight: 500;
   font-style: italic;
   font-display: swap;
@@ -134,7 +134,7 @@
 
 @font-face {
   font-family: "Unageo";
-  src: url("/fonts/unageo-regular.ttf") format("truetype");
+  src: url("/fonts/unageo-regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -142,7 +142,7 @@
 
 @font-face {
   font-family: "Pixelta";
-  src: url("/fonts/pixelta.ttf") format("truetype");
+  src: url("/fonts/pixelta.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -150,7 +150,7 @@
 
 @font-face {
   font-family: "Asthetic Pixel";
-  src: url("/fonts/asthetic-pixel.otf") format("opentype");
+  src: url("/fonts/asthetic-pixel.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -158,7 +158,7 @@
 
 @font-face {
   font-family: "Benzin-Bold";
-  src: url("/fonts/benzin-bold.otf") format("opentype");
+  src: url("/fonts/benzin-bold.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;

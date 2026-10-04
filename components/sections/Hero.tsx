@@ -45,7 +45,7 @@ export function Hero() {
     window.addEventListener("pointermove", boot, { passive: true });
     window.addEventListener("wheel", boot, { passive: true });
     window.addEventListener("touchstart", boot, { passive: true });
-    const timeoutId = window.setTimeout(boot, 1400);
+    const timeoutId = window.setTimeout(boot, 2200);
     return () => {
       done = true;
       window.clearTimeout(timeoutId);
@@ -160,7 +160,19 @@ export function Hero() {
           {!reduce && sceneReady ? (
             <LaptopScene interactive />
           ) : (
-            <div className="absolute inset-x-0 bottom-[12%] z-10 mx-auto h-56 w-[min(520px,90vw)] rounded-[2rem] bg-white/20" />
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-[8%] z-10 mx-auto flex h-[min(42vh,380px)] w-[min(560px,92vw)] items-end justify-center"
+              aria-hidden
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/hero-portfolio.png"
+                alt=""
+                draggable={false}
+                decoding="async"
+                className="max-h-full w-auto max-w-full select-none object-contain opacity-90"
+              />
+            </div>
           )}
         </div>
 

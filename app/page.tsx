@@ -1,42 +1,44 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/Hero";
-import { LazySection } from "@/components/layout/LazySection";
+import { About } from "@/components/sections/About";
 
-const About = dynamic(() =>
-  import("@/components/sections/About").then((m) => m.About),
-);
 const MarqueeTapes = dynamic(() =>
   import("@/components/sections/MarqueeTapes").then((m) => m.MarqueeTapes),
 );
-const Projects = dynamic(() =>
-  import("@/components/sections/Projects").then((m) => m.Projects),
+const Projects = dynamic(
+  () => import("@/components/sections/Projects").then((m) => m.Projects),
+  {
+    loading: () => (
+      <div className="min-h-[80vh]" aria-hidden />
+    ),
+  },
 );
-const Skills = dynamic(() =>
-  import("@/components/sections/Skills").then((m) => m.Skills),
+const Skills = dynamic(
+  () => import("@/components/sections/Skills").then((m) => m.Skills),
+  {
+    loading: () => (
+      <div className="min-h-[80vh]" aria-hidden />
+    ),
+  },
 );
-const Contact = dynamic(() =>
-  import("@/components/sections/Contact").then((m) => m.Contact),
+const Contact = dynamic(
+  () => import("@/components/sections/Contact").then((m) => m.Contact),
+  {
+    loading: () => (
+      <div className="min-h-[80vh] bg-black" aria-hidden />
+    ),
+  },
 );
 
 export default function HomePage() {
   return (
     <main id="main">
       <Hero />
-      <LazySection minHeight="90vh">
-        <About />
-      </LazySection>
-      <LazySection minHeight="360px" rootMargin="200px 0px">
-        <MarqueeTapes />
-      </LazySection>
-      <LazySection minHeight="100vh">
-        <Projects />
-      </LazySection>
-      <LazySection minHeight="100vh">
-        <Skills />
-      </LazySection>
-      <LazySection minHeight="100vh" rootMargin="400px 0px">
-        <Contact />
-      </LazySection>
+      <About />
+      <MarqueeTapes />
+      <Projects />
+      <Skills />
+      <Contact />
     </main>
   );
 }

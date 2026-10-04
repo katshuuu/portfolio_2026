@@ -25,8 +25,8 @@ const config: Config = {
       },
       fontFamily: {
         display: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        mono: ["var(--font-jetbrains)", "ui-monospace", "monospace"],
+        sans: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
+        mono: ["ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
         serif: ["Georgia", "Times New Roman", "serif"],
       },
       boxShadow: {

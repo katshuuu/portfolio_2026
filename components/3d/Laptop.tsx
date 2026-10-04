@@ -30,7 +30,7 @@ const CRT_SCREEN = {
   lines: ["Добро", "пожаловать!"] as string[],
   /** CSS font-family name registered via FontFace */
   fontFamily: "BenzinBold",
-  fontUrl: "/fonts/benzin-bold.otf",
+  fontUrl: "/fonts/benzin-bold.woff2",
   fontSize: 55,
   /** Vertical gap between line centers */
   lineGap: 80,

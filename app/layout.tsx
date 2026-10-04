@@ -1,24 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Inter, JetBrains_Mono } from "next/font/google";
+import { Manrope } from "next/font/google";
 import { Providers } from "@/components/layout/Providers";
 import "@/styles/globals.css";
 
-/** Manrope — Cyrillic + Latin for «ПОРТФОЛИО» and RU/EN UI */
+/** Single Google font — body fallback; display faces are local woff2 */
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
   variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-jetbrains",
   display: "swap",
 });
 
@@ -56,9 +44,31 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className="light" suppressHydrationWarning>
-      <body
-        className={`${manrope.variable} ${inter.variable} ${jetbrains.variable} font-sans`}
-      >
+      <head>
+        <link
+          rel="preload"
+          href="/fonts/blue-screen.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/snell-roundhand.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/bristol.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link rel="preload" href="/images/hero-blur.jpg" as="image" />
+      </head>
+      <body className={`${manrope.variable} font-sans`}>
         <Providers>{children}</Providers>
       </body>
     </html>
