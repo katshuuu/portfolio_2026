@@ -184,7 +184,7 @@ export function Hero() {
 function PortfolioWord({
   sinkRef,
 }: {
-  sinkRef: RefObject<HTMLDivElement | null>;
+  sinkRef: RefObject<HTMLDivElement>;
 }) {
   return (
     <div className="absolute left-1/2 top-[38%] z-[6] w-screen -translate-x-1/2 -translate-y-1/2 px-3 sm:px-5">
