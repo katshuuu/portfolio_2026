@@ -1,16 +1,21 @@
 {
-  "name": "golang-portfolio",
-  "short_name": "Portfolio",
-  "description": "Backend Golang developer portfolio",
+  "name": "Катя — портфолио",
+  "short_name": "Катя",
+  "description": "Портфолио Backend Go-разработчика",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
   "theme_color": "#0a0a0a",
   "icons": [
     {
-      "src": "/favicon.ico",
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.webp",
       "sizes": "any",
-      "type": "image/x-icon"
+      "type": "image/webp"
     }
   ]
 }

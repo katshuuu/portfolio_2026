@@ -24,15 +24,22 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Alex Dev — Backend Golang разработчик",
-    template: "%s · Alex Dev",
+    default: "Катя — Backend Go-разработчик",
+    template: "%s · Катя",
   },
   description:
-    "Портфолио Backend Golang разработчика: high-load systems, microservices и Clean Architecture.",
-  metadataBase: new URL("https://localhost:3000"),
+    "Портфолио начинающего Go-разработчика: backend-системы, проекты и стек.",
+  metadataBase: new URL("https://portfolio-2026-jet-two.vercel.app"),
+  icons: {
+    icon: [
+      { url: "/favicon.webp", type: "image/webp" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   openGraph: {
-    title: "Alex Dev — Backend Golang разработчик",
-    description: "High-load systems · Microservices · Clean Architecture",
+    title: "Катя — Backend Go-разработчик",
+    description: "Портфолио · Go · backend-системы",
     type: "website",
     locale: "ru_RU",
   },
