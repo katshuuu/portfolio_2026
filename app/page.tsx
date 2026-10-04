@@ -1,35 +1,14 @@
-import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
+import { MarqueeTapes } from "@/components/sections/MarqueeTapes";
+import { Projects } from "@/components/sections/Projects";
+import { Skills } from "@/components/sections/Skills";
+import { Contact } from "@/components/sections/Contact";
 
-const MarqueeTapes = dynamic(() =>
-  import("@/components/sections/MarqueeTapes").then((m) => m.MarqueeTapes),
-);
-const Projects = dynamic(
-  () => import("@/components/sections/Projects").then((m) => m.Projects),
-  {
-    loading: () => (
-      <div className="min-h-[80vh]" aria-hidden />
-    ),
-  },
-);
-const Skills = dynamic(
-  () => import("@/components/sections/Skills").then((m) => m.Skills),
-  {
-    loading: () => (
-      <div className="min-h-[80vh]" aria-hidden />
-    ),
-  },
-);
-const Contact = dynamic(
-  () => import("@/components/sections/Contact").then((m) => m.Contact),
-  {
-    loading: () => (
-      <div className="min-h-[80vh] bg-black" aria-hidden />
-    ),
-  },
-);
-
+/**
+ * Eager sections = full page in first HTML payload.
+ * Heavy WebGL / Matter.js stay dynamically imported inside Hero / Contact.
+ */
 export default function HomePage() {
   return (
     <main id="main">

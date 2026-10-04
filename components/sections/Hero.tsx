@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 import dynamic from "next/dynamic";
-import { useReducedMotion } from "framer-motion";
 import { useUIStore } from "@/lib/store";
 
 /**
@@ -18,9 +17,7 @@ const LaptopScene = dynamic(
 );
 
 export function Hero() {
-  const prefersReduced = useReducedMotion();
-  const reducedStore = useUIStore((s) => s.reducedMotion);
-  const reduce = Boolean(prefersReduced || reducedStore);
+  const reduce = useUIStore((s) => s.reducedMotion);
   const [sceneReady, setSceneReady] = useState(false);
   const pinRef = useRef<HTMLDivElement>(null);
   const wordRef = useRef<HTMLDivElement>(null);
@@ -28,7 +25,8 @@ export function Hero() {
   const veilRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<HTMLDivElement>(null);
 
-  // Boot WebGL after first interaction or a short delay — avoids opening hitch
+  // Boot WebGL only on intentional interaction or late idle — never on raw pointermove
+  // (pointermove was pulling ~700KB three.js and freezing first paint).
   useEffect(() => {
     if (reduce) return;
     let done = false;
@@ -37,22 +35,26 @@ export function Hero() {
       done = true;
       setSceneReady(true);
       window.removeEventListener("pointerdown", boot);
-      window.removeEventListener("pointermove", boot);
-      window.removeEventListener("wheel", boot);
       window.removeEventListener("touchstart", boot);
+      window.removeEventListener("keydown", boot);
     };
     window.addEventListener("pointerdown", boot, { passive: true });
-    window.addEventListener("pointermove", boot, { passive: true });
-    window.addEventListener("wheel", boot, { passive: true });
     window.addEventListener("touchstart", boot, { passive: true });
-    const timeoutId = window.setTimeout(boot, 2200);
+    window.addEventListener("keydown", boot);
+    const idleId =
+      "requestIdleCallback" in window
+        ? window.requestIdleCallback(() => boot(), { timeout: 5000 })
+        : 0;
+    const timeoutId = window.setTimeout(boot, 5000);
     return () => {
       done = true;
       window.clearTimeout(timeoutId);
+      if (idleId && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleId);
+      }
       window.removeEventListener("pointerdown", boot);
-      window.removeEventListener("pointermove", boot);
-      window.removeEventListener("wheel", boot);
       window.removeEventListener("touchstart", boot);
+      window.removeEventListener("keydown", boot);
     };
   }, [reduce]);
 
@@ -166,7 +168,7 @@ export function Hero() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/hero-portfolio.png"
+                src="/images/hero-portfolio.webp"
                 alt=""
                 draggable={false}
                 decoding="async"

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useUIStore } from "@/lib/store";
 import { Reveal } from "@/components/ui/Reveal";
+import { LineReveal } from "@/components/ui/LineReveal";
 
 /**
  * ABOUT — Screen 2
@@ -190,14 +191,14 @@ export function About() {
             <Reveal className="relative" y={20} duration={0.8}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/hello.png?v=3"
+                src="/images/hello.webp"
                 alt="hello"
                 className="w-full max-w-[613px] select-none object-contain"
                 draggable={false}
               />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/metallic-cursor.png"
+                src="/images/metallic-cursor.webp"
                 alt=""
                 aria-hidden
                 className="about-cursor-sway pointer-events-none absolute -bottom-[8%] right-[6%] z-10 w-[min(126px,22%)] select-none drop-shadow-[0_8px_20px_rgba(0,0,0,0.45)]"
@@ -211,9 +212,14 @@ export function About() {
             style={{ fontFamily: '"Unageo", system-ui, sans-serif' }}
           >
             {BIO.map((paragraph, index) => (
-              <Reveal key={index} delay={0.1 + index * 0.12} y={24} duration={0.85}>
-                <p>{paragraph}</p>
-              </Reveal>
+              <LineReveal
+                key={index}
+                delay={0.08 + index * 0.18}
+                stagger={0.1}
+                duration={0.55}
+              >
+                {paragraph}
+              </LineReveal>
             ))}
           </div>
         </div>

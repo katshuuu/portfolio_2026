@@ -20,16 +20,16 @@ const FOLDER_META = [
     projectIndex: 0,
     label: "платформа для обучения",
     preview: "mascot" as const,
-    src: "/images/folders/cow.png",
-    previewSrc: "/images/folders/golandia-achievements.png",
+    src: "/images/folders/cow.webp",
+    previewSrc: "/images/folders/golandia-achievements.webp",
     textColor: "#3B2414", // dark brown
   },
   {
     projectIndex: 1,
     label: "платформа + чат-бот",
     preview: "mascot" as const,
-    src: "/images/folders/gray.png",
-    previewSrc: "/images/folders/floramind-main.png",
+    src: "/images/folders/gray.webp",
+    previewSrc: "/images/folders/floramind-main.webp",
     previewHref: "https://disk.yandex.ru/i/UsopYQy9drZquA",
     textColor: "#2F2F2F", // dark gray
   },
@@ -37,8 +37,8 @@ const FOLDER_META = [
     projectIndex: 2,
     label: "умный поиск",
     preview: "mascot" as const,
-    src: "/images/folders/gold.png",
-    previewSrc: "/images/folders/moszapros-main.png",
+    src: "/images/folders/gold.webp",
+    previewSrc: "/images/folders/moszapros-main.webp",
     previewHref: "https://disk.yandex.ru/i/Z9n72-94eJ6Flw",
     textColor: "#946d2a", // gold folder
   },
@@ -46,7 +46,7 @@ const FOLDER_META = [
     projectIndex: 3,
     label: "телеграм-бот для PR",
     preview: "tickets" as const,
-    src: "/images/folders/brown.png",
+    src: "/images/folders/brown.webp",
     textColor: "#654a2d", // light brown folder
   },
 ];
@@ -65,7 +65,7 @@ export function Projects() {
         <h2 className="relative m-0 w-full">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/title-proekty.png?v=3"
+            src="/images/title-proekty.webp"
             alt="Проекты"
             className="relative h-auto w-full select-none object-contain"
             draggable={false}

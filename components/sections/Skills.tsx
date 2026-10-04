@@ -245,7 +245,7 @@ export function Skills() {
           <h2 className="relative m-0 w-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/title-stek.png?v=3"
+              src="/images/title-stek.webp"
               alt="Стек"
               className="relative h-auto w-full select-none object-contain"
               draggable={false}

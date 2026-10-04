@@ -173,6 +173,23 @@
   }
 }
 
+@keyframes line-reveal-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.line-reveal-line {
+  animation-name: line-reveal-in;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
 /* Stronger “open to work” status pulse */
 @keyframes open-work-ping {
   0% {
