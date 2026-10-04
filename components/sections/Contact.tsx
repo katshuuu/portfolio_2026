@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { SITE } from "@/lib/constants";
 import { useUIStore } from "@/lib/store";
 import { LiquidWriteButton } from "@/components/ui/LiquidWriteButton";
+import { Reveal } from "@/components/ui/Reveal";
 
 /**
  * CONTACT — final screen
@@ -143,7 +144,7 @@ export function Contact() {
         aria-label="Контакты"
       >
         <div className="relative z-10 flex w-full flex-col gap-8 px-3 sm:px-5 lg:flex-row lg:items-start lg:justify-between lg:gap-16 lg:px-6 xl:px-8">
-          <div className="flex min-w-0 flex-1 items-start gap-3 sm:gap-5 lg:max-w-none">
+          <Reveal className="flex min-w-0 flex-1 items-start gap-3 sm:gap-5 lg:max-w-none" y={32} duration={0.85}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/contact/memoji.webp"
@@ -159,9 +160,14 @@ export function Contact() {
             >
               Крутые проекты иногда начинаются с простого “привет”!
             </h2>
-          </div>
+          </Reveal>
 
-          <div className="flex shrink-0 flex-col items-start gap-5 pt-2 lg:items-end lg:pt-6">
+          <Reveal
+            className="flex shrink-0 flex-col items-start gap-5 pt-2 lg:items-end lg:pt-6"
+            delay={0.12}
+            y={28}
+            duration={0.8}
+          >
             <div className="flex w-[min(322px,94vw)] flex-col items-end gap-2.5">
               <p
                 className="flex items-center justify-end gap-2.5 text-[clamp(1.35rem,2.1vw,1.75rem)] text-white"
@@ -203,7 +209,7 @@ export function Contact() {
                 </a>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
 
         <GarlandLights />

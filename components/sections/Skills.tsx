@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useUIStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/ui/Reveal";
 
 /**
  * SKILLS — Screen 4
@@ -240,7 +241,7 @@ export function Skills() {
       aria-label="Стек"
     >
       <div className="relative z-10 mx-auto mb-6 mt-4 flex max-w-6xl flex-col items-center gap-4 sm:mt-6 sm:flex-row sm:items-end sm:justify-between">
-        <div className="w-full max-w-[728px]">
+        <Reveal className="w-full max-w-[728px]" y={24} duration={0.8}>
           <h2 className="relative m-0 w-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -253,26 +254,28 @@ export function Skills() {
           <p className="mx-auto mt-2 max-w-md text-center text-sm text-[#E8E8E8]/70">
             Моя карта навыков orbital map — выберите навык, и планета подсветится :)
           </p>
-        </div>
-        <div className="inline-flex rounded-full border border-white/25 bg-white/10 p-1 backdrop-blur">
-          {(["hard", "soft"] as const).map((m) => (
-            <button
-              key={m}
-              type="button"
-              onClick={() => {
-                setMode(m);
-                setActiveId(PLANETS.find((p) => p.kind === m)?.id ?? "go");
-              }}
-              className={cn(
-                "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wider transition",
-                mode === m ? "bg-[#E8E8E8] text-black" : "text-[#E8E8E8]/75"
-              )}
-              style={{ fontFamily: '"Unageo", system-ui, sans-serif' }}
-            >
-              {m === "hard" ? "Хард-скиллы" : "Софт-скиллы"}
-            </button>
-          ))}
-        </div>
+        </Reveal>
+        <Reveal delay={0.1} y={18} duration={0.7}>
+          <div className="inline-flex rounded-full border border-white/25 bg-white/10 p-1 backdrop-blur">
+            {(["hard", "soft"] as const).map((m) => (
+              <button
+                key={m}
+                type="button"
+                onClick={() => {
+                  setMode(m);
+                  setActiveId(PLANETS.find((p) => p.kind === m)?.id ?? "go");
+                }}
+                className={cn(
+                  "rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wider transition",
+                  mode === m ? "bg-[#E8E8E8] text-black" : "text-[#E8E8E8]/75"
+                )}
+                style={{ fontFamily: '"Unageo", system-ui, sans-serif' }}
+              >
+                {m === "hard" ? "Хард-скиллы" : "Софт-скиллы"}
+              </button>
+            ))}
+          </div>
+        </Reveal>
       </div>
 
       <div className="relative z-10 mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,728px)_minmax(280px,1fr)] lg:items-center">

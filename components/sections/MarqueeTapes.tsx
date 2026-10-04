@@ -1,3 +1,7 @@
+"use client";
+
+import { Reveal } from "@/components/ui/Reveal";
+
 /**
  * Three scrolling ribbons after About.
  * Figma: Group 7 (horizontal), Group 8 (−7.53°), Group 9 (+3.48°).
@@ -40,7 +44,6 @@ function Tape({
           className="relative inline-block shrink-0 overflow-hidden"
           style={{ width: "calc(1em * 41.5 / 32)", height: "calc(1em * 41.5 / 32)" }}
         >
-          {/* Glyph ink is ~30px inside an 83px em; target star face is 41.5×41.5 at 32px text (half of 83) */}
           <span
             className="absolute left-1/2"
             style={{
@@ -91,38 +94,40 @@ function Tape({
 
 export function MarqueeTapes() {
   return (
-    <section
-      aria-label="Ленты"
-      className="relative z-20 my-4 h-[360px] overflow-hidden sm:h-[410px]"
-    >
-      <Tape
-        phrase="dream big - work hard"
-        angle={0}
-        height={56}
-        duration="26s"
-        withStar
-      />
-      <div className="absolute inset-x-0 top-[125px] sm:top-[140px]">
+    <Reveal y={36} duration={0.9} className="relative z-20 my-4">
+      <section
+        aria-label="Ленты"
+        className="relative h-[360px] overflow-hidden sm:h-[410px]"
+      >
         <Tape
-          phrase="мыслю креативно, работаю стабильно"
-          angle={-7.53}
+          phrase="dream big - work hard"
+          angle={0}
           height={56}
-          letterSpacing="0.01em"
-          duration="32s"
-          reverse
+          duration="26s"
           withStar
         />
-      </div>
-      <div className="absolute inset-x-0 top-[260px] sm:top-[290px]">
-        <Tape
-          phrase="учусь непрерывно —> расту постепенно"
-          angle={3.48}
-          height={63}
-          letterSpacing="0.02em"
-          duration="30s"
-          withStar={false}
-        />
-      </div>
-    </section>
+        <div className="absolute inset-x-0 top-[125px] sm:top-[140px]">
+          <Tape
+            phrase="мыслю креативно, работаю стабильно"
+            angle={-7.53}
+            height={56}
+            letterSpacing="0.01em"
+            duration="32s"
+            reverse
+            withStar
+          />
+        </div>
+        <div className="absolute inset-x-0 top-[260px] sm:top-[290px]">
+          <Tape
+            phrase="учусь непрерывно —> расту постепенно"
+            angle={3.48}
+            height={63}
+            letterSpacing="0.02em"
+            duration="30s"
+            withStar={false}
+          />
+        </div>
+      </section>
+    </Reveal>
   );
 }

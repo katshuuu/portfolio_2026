@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import { useUIStore } from "@/lib/store";
+import { Reveal } from "@/components/ui/Reveal";
 
 /**
  * ABOUT — Screen 2
@@ -187,12 +187,7 @@ export function About() {
 
         <div ref={textColRef} className="relative flex w-full max-w-[633px] flex-col items-end">
           <div className="relative w-full max-w-[613px]">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
+            <Reveal className="relative" y={20} duration={0.8}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/hello.png?v=3"
@@ -208,21 +203,19 @@ export function About() {
                 className="about-cursor-sway pointer-events-none absolute -bottom-[8%] right-[6%] z-10 w-[min(126px,22%)] select-none drop-shadow-[0_8px_20px_rgba(0,0,0,0.45)]"
                 draggable={false}
               />
-            </motion.div>
+            </Reveal>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.08 }}
+          <div
             className="mt-8 flex w-full max-w-[633px] flex-col gap-6 px-5 pb-0 pt-5 text-justify text-[23px] leading-[30px] tracking-[0.07em] text-[#E8E8E8] sm:px-6 sm:pt-6"
             style={{ fontFamily: '"Unageo", system-ui, sans-serif' }}
           >
             {BIO.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
+              <Reveal key={index} delay={0.1 + index * 0.12} y={24} duration={0.85}>
+                <p>{paragraph}</p>
+              </Reveal>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

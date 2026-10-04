@@ -6,6 +6,7 @@ import { ExternalLink, Github, X } from "lucide-react";
 import { PROJECTS, type Project } from "@/lib/projects";
 import { useUIStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/ui/Reveal";
 /**
  * PROJECTS — Screen 3
  *
@@ -60,41 +61,45 @@ export function Projects() {
       className="relative min-h-screen overflow-hidden px-4 pb-28 pt-28 sm:px-8"
       aria-label="Проекты"
     >
-      <h2 className="relative z-10 mx-auto mb-8 w-full max-w-5xl">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/title-proekty.png?v=3"
-          alt="Проекты"
-          className="relative h-auto w-full select-none object-contain"
-          draggable={false}
-        />
-      </h2>
+      <Reveal y={24} duration={0.8} className="relative z-10 mx-auto mb-8 w-full max-w-5xl">
+        <h2 className="relative m-0 w-full">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/title-proekty.png?v=3"
+            alt="Проекты"
+            className="relative h-auto w-full select-none object-contain"
+            draggable={false}
+          />
+        </h2>
+      </Reveal>
 
       <div className="relative z-10 mx-auto grid max-w-3xl grid-cols-2 justify-items-center gap-x-6 gap-y-8 sm:gap-x-10 sm:gap-y-10">
         {FOLDER_META.map((folder, i) => {
           const project = PROJECTS[folder.projectIndex];
           return (
-            <motion.div
+            <Reveal
               key={folder.label}
               className="group w-full max-w-[280px] text-left"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.55 }}
-              onMouseEnter={() => setCursorLabel("Открыть")}
-              onMouseLeave={() => setCursorLabel(null)}
+              delay={i * 0.08}
+              y={36}
+              duration={0.7}
             >
-              <GlassFolder
-                label={folder.label}
-                preview={folder.preview}
-                title={project.title}
-                src={folder.src}
-                textColor={folder.textColor}
-                previewSrc={"previewSrc" in folder ? folder.previewSrc : undefined}
-                previewHref={"previewHref" in folder ? folder.previewHref : undefined}
-                onOpen={() => setActive(project)}
-              />
-            </motion.div>
+              <div
+                onMouseEnter={() => setCursorLabel("Открыть")}
+                onMouseLeave={() => setCursorLabel(null)}
+              >
+                <GlassFolder
+                  label={folder.label}
+                  preview={folder.preview}
+                  title={project.title}
+                  src={folder.src}
+                  textColor={folder.textColor}
+                  previewSrc={"previewSrc" in folder ? folder.previewSrc : undefined}
+                  previewHref={"previewHref" in folder ? folder.previewHref : undefined}
+                  onOpen={() => setActive(project)}
+                />
+              </div>
+            </Reveal>
           );
         })}
       </div>
