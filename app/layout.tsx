@@ -24,8 +24,8 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Катя — Backend Go-разработчик",
-    template: "%s · Катя",
+    default: "katshu — Go-разработчик",
+    template: "%s · katshu",
   },
   description:
     "Портфолио начинающего Go-разработчика: backend-системы, проекты и стек.",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
-    title: "Катя — Backend Go-разработчик",
+    title: "katshu — Go-разработчик",
     description: "Портфолио · Go · backend-системы",
     type: "website",
     locale: "ru_RU",

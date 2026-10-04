@@ -1,6 +1,6 @@
 export const SITE = {
-  name: "Катя",
-  role: "Backend Go-разработчик",
+  name: "katshu",
+  role: "Go-разработчик",
   tagline: "High-load · Microservices · Clean Architecture",
   email: "schustalova.katya@yandex.ru",
   location: "Remote / EU",

@@ -1,7 +1,7 @@
 {
-  "name": "Катя — портфолио",
-  "short_name": "Катя",
-  "description": "Портфолио Backend Go-разработчика",
+  "name": "katshu — Go-разработчик",
+  "short_name": "katshu",
+  "description": "Портфолио Go-разработчика",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
