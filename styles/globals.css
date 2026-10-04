@@ -1,0 +1,407 @@
+:root {
+  --color-bg: #050508;
+  --color-bg-elevated: #121218;
+  --color-fg: #e8e8e8;
+  --color-fg-muted: #a8a8b0;
+  --color-accent: #b8b4e8;
+  --color-accent-soft: rgba(184, 180, 232, 0.18);
+  --color-line: rgba(232, 232, 232, 0.14);
+  --color-dot: rgba(255, 255, 255, 0.06);
+  --cursor-size: 12px;
+}
+
+.dark {
+  --color-bg: #0a0a0a;
+  --color-bg-elevated: #121212;
+  --color-fg: #ffffff;
+  --color-fg-muted: #a1a1aa;
+  --color-accent: #3b82f6;
+  --color-accent-soft: rgba(59, 130, 246, 0.18);
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-dot: rgba(255, 255, 255, 0.06);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: auto;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  body {
+    @apply text-fg font-sans antialiased;
+    background-color: #000;
+  }
+
+  #main {
+    position: relative;
+    isolation: isolate;
+    background-color: #000;
+    background-image: url("/images/bgr.jpg");
+    background-repeat: no-repeat;
+    background-position: top center;
+    /* One continuous stretch across the full page height — no tiling seams */
+    background-size: 100% 100%;
+  }
+
+  @media (pointer: coarse) {
+    .custom-cursor {
+      display: none !important;
+    }
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+}
+
+/* System pointer is hidden on desktop so only the chrome cursor is visible. */
+@media (hover: hover) and (pointer: fine) {
+  html,
+  html * {
+    cursor: none !important;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--color-line);
+  }
+
+  .mask-fade-bottom {
+    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@font-face {
+  font-family: "Blue Screen Personal Use";
+  src: url("/fonts/blue-screen.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bristol";
+  src: url("/fonts/bristol.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Snell Roundhand";
+  src: url("/fonts/snell-roundhand.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Unageo";
+  src: url("/fonts/unageo-regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pixelta";
+  src: url("/fonts/pixelta.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Asthetic Pixel";
+  src: url("/fonts/asthetic-pixel.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Benzin-Bold";
+  src: url("/fonts/benzin-bold.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Stronger “open to work” status pulse */
+@keyframes open-work-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(3.6);
+    opacity: 0;
+  }
+}
+
+/* Fairy-light bulb twinkle on contact garland */
+@keyframes garland-twinkle {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.35);
+  }
+  70% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+.garland-glow {
+  animation-name: garland-twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: opacity, transform;
+}
+
+/* Hero PORTFOLIO wordmark — Figma Group 35 / node 208-19 */
+.portfolio-word {
+  --portfolio-base-size: clamp(3.9rem, 17.5vw, 20rem);
+  --portfolio-script-size: clamp(5.4rem, 24vw, 27rem);
+  --portfolio-aside-size: clamp(1rem, 2.5vw, 2.75rem);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.portfolio-word__row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  line-height: 0.82;
+}
+
+.portfolio-word__chunk {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.portfolio-word__chunk--end {
+  align-items: flex-end;
+}
+
+.portfolio-word__base {
+  font-family: "Blue Screen Personal Use", serif;
+  font-size: var(--portfolio-base-size);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: #f5f5f5;
+  text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 0.82;
+}
+
+.portfolio-word__script {
+  position: relative;
+  z-index: 2;
+  margin: 0 clamp(-0.12em, -1.6vw, -0.06em);
+  font-family: "Snell Roundhand", cursive;
+  font-size: var(--portfolio-script-size);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 0.75;
+  color: #c4c8e0;
+  -webkit-text-stroke: clamp(0.8px, 0.12vw, 1.6px) #050505;
+  paint-order: stroke fill;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  transform: translate(
+    clamp(-0.22em, -2.8vw, -0.12em),
+    clamp(0.02em, 0.6vw, 0.1em)
+  );
+}
+
+.portfolio-word__aside {
+  position: relative;
+  z-index: 3;
+  margin: 0;
+  font-family: "Blue Screen Personal Use", "Asthetic Pixel", monospace;
+  font-size: var(--portfolio-aside-size);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.portfolio-word__aside--top {
+  margin-bottom: -0.01em;
+}
+
+.portfolio-word__aside--bottom {
+  margin-top: -0.01em;
+}
+
+.marquee-track {
+  animation: marquee-scroll var(--marquee-duration, 28s) linear infinite;
+}
+
+.marquee-track--reverse {
+  animation-direction: reverse;
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Cancels both the orbit spin AND the static phase offset (--orbit-start) */
+@keyframes orbit-counter {
+  from {
+    transform: rotate(calc(-1 * var(--orbit-start, 0deg)));
+  }
+  to {
+    transform: rotate(calc(-1 * var(--orbit-start, 0deg) - 360deg));
+  }
+}
+
+/* Projects glass folders — convodesign101 open tilt */
+.glass-folder-content {
+  transform: translate3d(0, 0, 0) scale(1);
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.group:hover .glass-folder-content,
+.group:focus .glass-folder-content,
+.group:focus-visible .glass-folder-content {
+  transform: translate3d(0, -32%, 0) scale(1.03);
+}
+
+.glass-folder-front {
+  transform-origin: 50% 100%;
+  transform: rotateX(0deg) skewX(0deg) translateY(0);
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+.group:hover .glass-folder-front,
+.group:focus .glass-folder-front,
+.group:focus-visible .glass-folder-front {
+  transform: rotateX(26deg) skewX(-6deg) translateY(4%);
+}
+
+@keyframes about-cursor-sway {
+  0%,
+  100% {
+    transform: rotate(-19.78deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(-12deg) translate3d(6px, -10px, 0);
+  }
+}
+
+.about-cursor-sway {
+  animation: about-cursor-sway 3.6s ease-in-out infinite;
+  transform-origin: 30% 20%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-cursor-sway {
+    animation: none;
+  }
+}
+
+@keyframes soap-bubble {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.35);
+  }
+  18% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--dx) * 0.35), calc(-50% + var(--dy) * 0.35)) scale(1);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.05);
+  }
+}
+
+.soap-bubble {
+  background:
+    radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.95) 0 18%, rgba(255, 255, 255, 0.25) 19%, transparent 46%),
+    radial-gradient(circle at 50% 55%, var(--bubble) 0 58%, transparent 72%);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255, 255, 255, 0.9),
+    0 1px 3px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.35);
+}
+
+.group:hover .soap-bubble {
+  animation: soap-bubble 1.7s ease-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .soap-bubble {
+    animation: none;
+    opacity: 0.9;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1);
+  }
+}
