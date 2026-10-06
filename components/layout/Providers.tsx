@@ -30,11 +30,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <>
       <SitePreloader />
       <div
-        className="min-h-screen transition-[opacity,filter,transform] duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+        className="min-h-screen transition-[opacity,filter] duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
         style={{
           opacity: siteReady ? 1 : 0,
           filter: siteReady ? "none" : "blur(8px)",
-          transform: siteReady ? "none" : "scale(1.015)",
           visibility: siteReady ? "visible" : "hidden",
           pointerEvents: siteReady ? "auto" : "none",
         }}

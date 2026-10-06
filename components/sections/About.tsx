@@ -33,6 +33,7 @@ const BIO = [
 
 export function About() {
   const setCursorLabel = useUIStore((s) => s.setCursorLabel);
+  const siteReady = useUIStore((s) => s.siteReady);
   const [dividerPos, setDividerPos] = useState(50);
   const frameRef = useRef<HTMLDivElement>(null);
   const textColRef = useRef<HTMLDivElement>(null);
@@ -43,18 +44,35 @@ export function About() {
     const col = textColRef.current;
     if (!col) return;
     const mq = window.matchMedia("(min-width: 1024px)");
+
     const measure = () => {
-      setFrameHeight(mq.matches ? col.getBoundingClientRect().height : null);
+      if (!mq.matches) {
+        setFrameHeight(null);
+        return;
+      }
+      // offsetHeight ignores parent CSS transforms (preloader scale/blur wrapper)
+      const h = col.offsetHeight;
+      if (h < 120) return;
+      setFrameHeight(h);
     };
+
     measure();
-    const ro = new ResizeObserver(measure);
+    const ro = new ResizeObserver(() => {
+      window.requestAnimationFrame(measure);
+    });
     ro.observe(col);
     mq.addEventListener("change", measure);
+    void document.fonts?.ready?.then(() => measure());
+    // Remeasure after preloader reveal settles (transform transition ~1.1s)
+    const delays = [0, 80, siteReady ? 200 : 0, siteReady ? 1200 : 0]
+      .filter((d, i, arr) => arr.indexOf(d) === i)
+      .map((d) => window.setTimeout(measure, d));
     return () => {
       ro.disconnect();
       mq.removeEventListener("change", measure);
+      delays.forEach((id) => window.clearTimeout(id));
     };
-  }, []);
+  }, [siteReady]);
 
   const updateFromClientX = useCallback((clientX: number) => {
     const el = frameRef.current;
@@ -93,7 +111,7 @@ export function About() {
       aria-label="Обо мне"
     >
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-12 lg:max-w-none lg:flex-row lg:items-start lg:justify-center lg:gap-16">
-        <div>
+        <div className="shrink-0">
           <div
             className={
               frameHeight
@@ -108,7 +126,7 @@ export function About() {
           >
             <div
               ref={frameRef}
-              className="absolute cursor-ew-resize select-none overflow-hidden bg-bg-elevated touch-none"
+              className="absolute cursor-ew-resize touch-none select-none overflow-hidden bg-bg-elevated"
               style={{
                 left: "21.12%",
                 top: "16.38%",
@@ -163,7 +181,7 @@ export function About() {
               </div>
 
               <div
-                className="absolute top-0 z-10 bottom-0 w-0.5 -translate-x-1/2 bg-gradient-to-b from-transparent via-[#E8E8E8] to-transparent"
+                className="absolute bottom-0 top-0 z-10 w-0.5 -translate-x-1/2 bg-gradient-to-b from-transparent via-[#E8E8E8] to-transparent"
                 style={{ left: `${dividerPos}%` }}
               >
                 <div className="absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-[#E8E8E8] bg-black/70 shadow-[0_0_24px_rgba(232,232,232,0.35)]">
@@ -191,14 +209,14 @@ export function About() {
             <Reveal className="relative" y={20} duration={0.8}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/hello.webp"
+                src="/images/hello.png?v=3"
                 alt="hello"
                 className="w-full max-w-[613px] select-none object-contain"
                 draggable={false}
               />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/metallic-cursor.webp"
+                src="/images/metallic-cursor.png"
                 alt=""
                 aria-hidden
                 className="about-cursor-sway pointer-events-none absolute -bottom-[8%] right-[6%] z-10 w-[min(126px,22%)] select-none drop-shadow-[0_8px_20px_rgba(0,0,0,0.45)]"
@@ -207,6 +225,7 @@ export function About() {
             </Reveal>
           </div>
 
+          {/* Stable layout shell — line animation must not change column metrics */}
           <BioLineReveal
             paragraphs={BIO}
             className="mt-8 w-full max-w-[633px] px-5 pb-0 pt-5 text-justify text-[23px] leading-[30px] tracking-[0.07em] text-[#E8E8E8] sm:px-6 sm:pt-6"
