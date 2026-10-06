@@ -6,6 +6,8 @@ import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 import { useReducedMotionPref } from "@/hooks/useReducedMotionPref";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { SiteNav } from "@/components/layout/SiteNav";
+import { SitePreloader } from "@/components/layout/SitePreloader";
+import { useUIStore } from "@/lib/store";
 
 const CustomCursor = dynamic(
   () => import("@/components/layout/CustomCursor").then((m) => m.CustomCursor),
@@ -15,19 +17,34 @@ const CustomCursor = dynamic(
 export function Providers({ children }: { children: React.ReactNode }) {
   useReducedMotionPref();
   useSmoothScroll();
+  const siteReady = useUIStore((s) => s.siteReady);
   const [cursorReady, setCursorReady] = useState(false);
 
   useEffect(() => {
+    if (!siteReady) return;
     const id = window.setTimeout(() => setCursorReady(true), 40);
     return () => window.clearTimeout(id);
-  }, []);
+  }, [siteReady]);
 
   return (
     <>
-      <ScrollProgress />
-      {cursorReady ? <CustomCursor /> : null}
-      <SiteNav />
-      {children}
+      <SitePreloader />
+      <div
+        className="min-h-screen transition-[opacity,filter,transform] duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+        style={{
+          opacity: siteReady ? 1 : 0,
+          filter: siteReady ? "none" : "blur(8px)",
+          transform: siteReady ? "none" : "scale(1.015)",
+          visibility: siteReady ? "visible" : "hidden",
+          pointerEvents: siteReady ? "auto" : "none",
+        }}
+        aria-hidden={!siteReady}
+      >
+        <ScrollProgress />
+        {cursorReady ? <CustomCursor /> : null}
+        <SiteNav />
+        {children}
+      </div>
     </>
   );
 }

@@ -175,7 +175,14 @@ export function Projects() {
             })}
           </div>
           <div className="mt-3 flex justify-center">
-            <span className="rounded-full bg-white/15 px-4 py-1 text-[11px] font-medium text-[#E8E8E8] backdrop-blur">
+            <span
+              className="rounded-full px-4 py-1 text-[11px] font-medium backdrop-blur"
+              style={{
+                fontFamily: '"Pixelta", "Unageo", system-ui, sans-serif',
+                backgroundColor: "rgba(199, 193, 232, 0.35)",
+                color: "#1A1525",
+              }}
+            >
               кейсы
             </span>
           </div>

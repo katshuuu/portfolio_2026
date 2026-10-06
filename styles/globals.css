@@ -190,6 +190,36 @@
   animation-fill-mode: both;
 }
 
+/* Site preloader dissolve */
+.site-preloader--in {
+  opacity: 1;
+  filter: none;
+  transform: none;
+  transition:
+    opacity 1.35s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.35s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-preloader--out {
+  opacity: 0;
+  filter: blur(14px) saturate(1.05);
+  transform: scale(1.04);
+  transition:
+    opacity 1.35s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.35s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-preloader--in,
+  .site-preloader--out {
+    transition-duration: 0.01ms !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
 /* Stronger “open to work” status pulse */
 @keyframes open-work-ping {
   0% {

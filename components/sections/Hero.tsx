@@ -18,45 +18,29 @@ const LaptopScene = dynamic(
 
 export function Hero() {
   const reduce = useUIStore((s) => s.reducedMotion);
-  const [sceneReady, setSceneReady] = useState(false);
+  const markSceneReady = useUIStore((s) => s.markSceneReady);
+  const [bootScene, setBootScene] = useState(false);
+  const [sceneLoaded, setSceneLoaded] = useState(false);
   const pinRef = useRef<HTMLDivElement>(null);
   const wordRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const veilRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<HTMLDivElement>(null);
 
-  // Boot WebGL only on intentional interaction or late idle — never on raw pointermove
-  // (pointermove was pulling ~700KB three.js and freezing first paint).
+  // Boot WebGL during site preloader so the splash can wait on the first frame.
   useEffect(() => {
-    if (reduce) return;
-    let done = false;
-    const boot = () => {
-      if (done) return;
-      done = true;
-      setSceneReady(true);
-      window.removeEventListener("pointerdown", boot);
-      window.removeEventListener("touchstart", boot);
-      window.removeEventListener("keydown", boot);
-    };
-    window.addEventListener("pointerdown", boot, { passive: true });
-    window.addEventListener("touchstart", boot, { passive: true });
-    window.addEventListener("keydown", boot);
-    const idleId =
-      "requestIdleCallback" in window
-        ? window.requestIdleCallback(() => boot(), { timeout: 5000 })
-        : 0;
-    const timeoutId = window.setTimeout(boot, 5000);
-    return () => {
-      done = true;
-      window.clearTimeout(timeoutId);
-      if (idleId && "cancelIdleCallback" in window) {
-        window.cancelIdleCallback(idleId);
-      }
-      window.removeEventListener("pointerdown", boot);
-      window.removeEventListener("touchstart", boot);
-      window.removeEventListener("keydown", boot);
-    };
-  }, [reduce]);
+    if (reduce) {
+      markSceneReady();
+      return;
+    }
+    const id = window.setTimeout(() => setBootScene(true), 80);
+    return () => window.clearTimeout(id);
+  }, [reduce, markSceneReady]);
+
+  const handleSceneReady = () => {
+    setSceneLoaded(true);
+    markSceneReady();
+  };
 
   useEffect(() => {
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
@@ -159,23 +143,30 @@ export function Hero() {
         <PortfolioWord sinkRef={wordRef} />
 
         <div ref={sceneRef} className="absolute inset-0 z-10 will-change-transform">
-          {!reduce && sceneReady ? (
-            <LaptopScene interactive />
-          ) : (
+          {/* Static poster while 3D boots (covered by site preloader) */}
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-[8%] z-10 mx-auto flex h-[min(42vh,380px)] w-[min(560px,92vw)] items-end justify-center transition-opacity duration-500"
+            style={{ opacity: !reduce && sceneLoaded ? 0 : 1 }}
+            aria-hidden
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/hero-portfolio.webp"
+              alt=""
+              draggable={false}
+              decoding="async"
+              className="max-h-full w-auto max-w-full select-none object-contain opacity-90"
+            />
+          </div>
+
+          {!reduce && bootScene ? (
             <div
-              className="pointer-events-none absolute inset-x-0 bottom-[8%] z-10 mx-auto flex h-[min(42vh,380px)] w-[min(560px,92vw)] items-end justify-center"
-              aria-hidden
+              className="absolute inset-0 transition-opacity duration-500"
+              style={{ opacity: sceneLoaded ? 1 : 0 }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/hero-portfolio.webp"
-                alt=""
-                draggable={false}
-                decoding="async"
-                className="max-h-full w-auto max-w-full select-none object-contain opacity-90"
-              />
+              <LaptopScene interactive onReady={handleSceneReady} />
             </div>
-          )}
+          ) : null}
         </div>
 
         {/* Soft dissolve into the next screen — fades out before the edge */}

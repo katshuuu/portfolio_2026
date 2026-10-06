@@ -7,11 +7,17 @@ interface UIStore {
   cursorLabel: string | null;
   scrollProgress: number;
   reducedMotion: boolean;
+  /** Hero WebGL finished first frame */
+  sceneReady: boolean;
+  /** Preloader finished — main UI may show */
+  siteReady: boolean;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
   setCursorLabel: (label: string | null) => void;
   setScrollProgress: (value: number) => void;
   setReducedMotion: (value: boolean) => void;
+  markSceneReady: () => void;
+  markSiteReady: () => void;
 }
 
 export const useUIStore = create<UIStore>((set, get) => ({
@@ -19,6 +25,8 @@ export const useUIStore = create<UIStore>((set, get) => ({
   cursorLabel: null,
   scrollProgress: 0,
   reducedMotion: false,
+  sceneReady: false,
+  siteReady: false,
   setTheme: (theme) => {
     set({ theme });
     if (typeof document !== "undefined") {
@@ -33,4 +41,6 @@ export const useUIStore = create<UIStore>((set, get) => ({
   setCursorLabel: (cursorLabel) => set({ cursorLabel }),
   setScrollProgress: (scrollProgress) => set({ scrollProgress }),
   setReducedMotion: (reducedMotion) => set({ reducedMotion }),
+  markSceneReady: () => set({ sceneReady: true }),
+  markSiteReady: () => set({ siteReady: true }),
 }));

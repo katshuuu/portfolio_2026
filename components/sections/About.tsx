@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useUIStore } from "@/lib/store";
 import { Reveal } from "@/components/ui/Reveal";
-import { LineReveal } from "@/components/ui/LineReveal";
+import { BioLineReveal } from "@/components/ui/LineReveal";
 
 /**
  * ABOUT — Screen 2
@@ -207,21 +207,13 @@ export function About() {
             </Reveal>
           </div>
 
-          <div
-            className="mt-8 flex w-full max-w-[633px] flex-col gap-6 px-5 pb-0 pt-5 text-justify text-[23px] leading-[30px] tracking-[0.07em] text-[#E8E8E8] sm:px-6 sm:pt-6"
+          <BioLineReveal
+            paragraphs={BIO}
+            className="mt-8 w-full max-w-[633px] px-5 pb-0 pt-5 text-justify text-[23px] leading-[30px] tracking-[0.07em] text-[#E8E8E8] sm:px-6 sm:pt-6"
+            stagger={0.1}
+            duration={0.55}
             style={{ fontFamily: '"Unageo", system-ui, sans-serif' }}
-          >
-            {BIO.map((paragraph, index) => (
-              <LineReveal
-                key={index}
-                delay={0.08 + index * 0.18}
-                stagger={0.1}
-                duration={0.55}
-              >
-                {paragraph}
-              </LineReveal>
-            ))}
-          </div>
+          />
         </div>
       </div>
     </section>
